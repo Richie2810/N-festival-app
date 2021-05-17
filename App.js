@@ -9,6 +9,7 @@ import Test from './src/components/Test'
 
 function App() {
   const user = useSelector(selectUser)
+  console.log('the users token is"', user.token)
 
   return (
     <>

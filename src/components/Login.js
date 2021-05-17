@@ -19,7 +19,6 @@ export default function Login() {
             <TextInput placeholder="Email" style={styles.input} onChangeText={onChangeEmail}/>
             <TextInput placeholder="Password" style={styles.input} onChangeText={onChangePass}/>
             <TouchableOpacity style={styles.btn} onPress={()=> {
-                console.log('before dispatch',email, password)
                 dispatch(login(email, password))
                 }}>
                 <Text style={styles.loginInText}>Login</Text>

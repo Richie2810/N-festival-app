@@ -20,7 +20,6 @@ return {
 
 export const login = (email, password) => {
     return async (dispatch, getState) => {
-      console.log('inside action', email, password)
       try {
         const response = await axios.post(`${apiUrl}/login`, {
           email,
