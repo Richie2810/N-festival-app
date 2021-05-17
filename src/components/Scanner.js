@@ -6,7 +6,7 @@ import { BarCodeScanner } from 'expo-barcode-scanner';
 export default function Scanner(props) {
     const [hasPermission, setHasPermission] = useState(null);
     const [scanned, setScanned] = useState(false);
-
+    const [scanning, setScanning] = useState(true)
 
     useEffect(() => {
         (async () => {
@@ -17,6 +17,8 @@ export default function Scanner(props) {
     
     const handleBarCodeScanned = ({ type, data }) => {
     setScanned(true);
+    props.onScan()
+    setScanning(false)
     alert(`Bar code with type ${type} and data ${data} has been scanned!`);
     };
 
@@ -31,11 +33,10 @@ export default function Scanner(props) {
     return (
       
         <View style={styles.container}>
-            <BarCodeScanner
+            {scanning ? <BarCodeScanner
                 onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
                 style={StyleSheet.absoluteFillObject}
-            />
-            {scanned && <Button title={'Tap to Scan Again'} onPress={() => setScanned(false)} />}
+            />:null}
         </View>
     )
 }

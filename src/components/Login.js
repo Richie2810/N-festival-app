@@ -6,8 +6,8 @@ import {login} from '../store/user/actions'
 
 export default function Login() {
     const dispatch = useDispatch()
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
+    const [email, setEmail] = useState('A')
+    const [password, setPassword] = useState('A')
 
     const onChangeEmail =(textValue)=> setEmail(textValue)
     const onChangePass =(textValue)=> setPassword(textValue)

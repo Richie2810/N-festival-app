@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { Text, View, StyleSheet, Button, Alert} from 'react-native'
-import { FlatList, TouchableOpacity } from 'react-native-gesture-handler'
 import Scanner from '../components/Scanner'
 const Separator = () => (
     <View style={styles.separator} />
@@ -9,7 +8,13 @@ const Separator = () => (
 export default function Options() {
     const [scannerActive, setScannerActive] = useState(false)
     const [scanInBtn, setScanInBtn] = useState(true)
-    const [scanOutBtn, setScanOutBtn] = useState(false)
+    const [scanOutBtn, setScanOutBtn] = useState(true)
+
+    const onScan = () => {
+        setScanOutBtn(!scanOutBtn)
+        setScanInBtn(!scanInBtn)
+        setScannerActive(false)
+    }
 
     return (
         <>
@@ -23,18 +28,23 @@ export default function Options() {
                 onPress={()=>{
                     setScannerActive(true)
                     setScanInBtn(false)
+                    setScanOutBtn(false)
                 }}
                 title='Scan In'
                 color='darkslateblue'
             /> : null}
             <Separator />
             {scanOutBtn ? <Button style={styles.Btn}
-                onPress={()=>Alert.alert('Scan Item')}
+                onPress={()=>{
+                    setScannerActive(true)
+                    setScanOutBtn(false)
+                    setScanInBtn(false)
+                }}
                 title='Scan out'
                 color='darkslateblue'
             /> : null}
             <Separator />
-            {scannerActive ? <Scanner /> : null}
+            {scannerActive ? <Scanner onScan={onScan}/> : null}
             <Separator />
             <Button style={styles.Btn}
                 onPress={()=>Alert.alert('Scan Item')}
