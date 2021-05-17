@@ -1,21 +1,27 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Provider, useSelector } from 'react-redux';
+import { selectUser } from './src/store/user/selectors'
+import Header from './src/components/Header.js'
+import Login from './src/components/Login';
+import store from "./src/store";
+import Options from './src/components/Options'
+import Test from './src/components/Test'
 
-export default function App() {
+function App() {
+  const user = useSelector(selectUser)
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+    <>
+      <Header />
+      {user.token === null ? <Login /> : <Options />}
+    </>
+  )
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default function AppWrapper() {
+  return (
+    <Provider store={store}>
+      <App />
+    </Provider>
+  );
+}
