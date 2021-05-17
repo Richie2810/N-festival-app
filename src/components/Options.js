@@ -5,8 +5,9 @@ import Scanner from '../components/Scanner'
 import { logOut } from '../store/user/actions';
 import Locator from "./Locator"
 import { selectUser } from '../store/user/selectors';
-import { geoLocation } from '../store/location/selectors'
+import { selectLat, selectLong } from '../store/location/selectors'
 import { theTracker } from '../store/tracking/selectors'
+import { startTracking, stopTracker } from '../store/tracking/actions'
 
 const Separator = () => (
     <View style={styles.separator} />
@@ -20,7 +21,9 @@ export default function Options() {
 
     const user = useSelector(selectUser)
     const tracker = useSelector(theTracker)
-    const locator = useSelector(geoLocation)
+
+    const longitude = useSelector(selectLong)
+    const latitude = useSelector(selectLat)
 
     const dispatch = useDispatch()
 
@@ -29,11 +32,10 @@ export default function Options() {
         setScanOutBtn(true)
         setScannerActive(false)
         setLocatorActive(true)
-        console.log(user.id, data, locator.location.coords.longitude, locator.location.coords.latitude)
-        // tracker 
-        //     ? dispatch(startTracking(user, data, location))
-        //     : dispatch(stopTracker())
-        // console.log(tracking)
+        console.log('clg before dispatch', user.id, data, longitude, latitude)
+        !tracker 
+            ? dispatch(startTracking(user.id, data, longitude, latitude))
+            : dispatch(stopTracker())
     }
 
     return (
@@ -76,7 +78,6 @@ export default function Options() {
                 color='darkred'
                 title='Logout'
             />
-
         </>
     )
 }

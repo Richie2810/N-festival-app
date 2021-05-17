@@ -27,7 +27,6 @@ export default function Locator() {
 
       let location = await Location.getCurrentPositionAsync({});
       setLocation(location);
-      console.log('This is the send location function',sendLocation())
       dispatch(sendLocation(location))
     })();
   }, []);

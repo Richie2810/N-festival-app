@@ -3,6 +3,7 @@ import { Text, View, StyleSheet } from 'react-native'
 import { TextInput, TouchableOpacity } from 'react-native-gesture-handler'
 import { useDispatch } from 'react-redux'
 import {login} from '../store/user/actions'
+import Locator from './Locator'
 
 export default function Login() {
     const dispatch = useDispatch()
@@ -11,8 +12,6 @@ export default function Login() {
 
     const onChangeEmail =(textValue)=> setEmail(textValue)
     const onChangePass =(textValue)=> setPassword(textValue)
-
-
 
     return (
         <View>
@@ -23,6 +22,7 @@ export default function Login() {
                 }}>
                 <Text style={styles.loginInText}>Login</Text>
             </TouchableOpacity>
+            <Locator />
         </View>
     )
 }

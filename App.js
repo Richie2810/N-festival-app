@@ -5,7 +5,6 @@ import Header from './src/components/Header.js'
 import Login from './src/components/Login';
 import store from "./src/store";
 import Options from './src/components/Options'
-import Test from './src/components/Test'
 
 function App() {
   const user = useSelector(selectUser)
