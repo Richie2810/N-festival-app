@@ -1,0 +1,1 @@
+export const geoLocation = state => state.location

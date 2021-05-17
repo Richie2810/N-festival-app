@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react'
-import { Text, View, StyleSheet, Button, Alert} from 'react-native'
-import { useDispatch } from 'react-redux';
+import React, { useState} from 'react'
+import { Text, View, StyleSheet, Button} from 'react-native'
+import { useDispatch, useSelector } from 'react-redux';
 import Scanner from '../components/Scanner'
 import { logOut } from '../store/user/actions';
 import Locator from "./Locator"
-import * as Location from 'expo-location';
+import { selectUser } from '../store/user/selectors';
+import { geoLocation } from '../store/location/selectors'
+import { theTracker } from '../store/tracking/selectors'
 
 const Separator = () => (
     <View style={styles.separator} />
@@ -16,13 +18,22 @@ export default function Options() {
     const [scanInBtn, setScanInBtn] = useState(true)
     const [scanOutBtn, setScanOutBtn] = useState(true)
 
+    const user = useSelector(selectUser)
+    const tracker = useSelector(theTracker)
+    const locator = useSelector(geoLocation)
+
     const dispatch = useDispatch()
 
-    const onScan = () => {
+    const onScan = (data) => {
         setScanInBtn(true)
         setScanOutBtn(true)
         setScannerActive(false)
         setLocatorActive(true)
+        console.log(user.id, data, locator.location.coords.longitude, locator.location.coords.latitude)
+        // tracker 
+        //     ? dispatch(startTracking(user, data, location))
+        //     : dispatch(stopTracker())
+        // console.log(tracking)
     }
 
     return (
@@ -56,7 +67,7 @@ export default function Options() {
             /> : null}
             <Separator />
             {scannerActive ? <Scanner onScan={onScan}/> : null}
-            {locatorActive ? <Locator /> : null }
+            <Locator />
             <Separator />
             <Button style={styles.Btn}
                 onPress={()=>{

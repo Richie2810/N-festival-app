@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Platform, Text, View, StyleSheet } from 'react-native';
 import Constants from 'expo-constants';
+import { sendLocation } from '../store/location/actions'
 import * as Location from 'expo-location';
+import { useDispatch } from 'react-redux';
+
 
 export default function Locator() {
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
+  const dispatch = useDispatch()
 
   useEffect(() => {
     (async () => {
@@ -23,14 +27,14 @@ export default function Locator() {
 
       let location = await Location.getCurrentPositionAsync({});
       setLocation(location);
+      console.log('This is the send location function',sendLocation())
+      dispatch(sendLocation(location))
     })();
   }, []);
 
-  let text = 'Waiting..';
   if (errorMsg) {
     text = errorMsg;
   }
-
 
   return (
     <View style={styles.container}>

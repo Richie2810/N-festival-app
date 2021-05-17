@@ -17,9 +17,8 @@ export default function Scanner(props) {
     
     const handleBarCodeScanned = ({ type, data }) => {
     setScanned(true);
-    props.onScan()
+    props.onScan(data)
     setScanning(false)
-    alert(`Bar code with type ${type} and data ${data} has been scanned!`);
     };
 
     if (hasPermission === null) {
